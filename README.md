@@ -11,6 +11,7 @@ This template has been updated for:
 -   [TypeScript 5.3.3](https://github.com/microsoft/TypeScript)
 
 ![screenshot](https://i.imgur.com/Lz17ytT.png)
+![screenshot](https://i.imgur.com/6jWpY1Z.png)
 
 ## Управление
 
