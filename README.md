@@ -10,7 +10,7 @@ This template has been updated for:
 -   [Vite 5.1.4](https://github.com/vitejs/vite)
 -   [TypeScript 5.3.3](https://github.com/microsoft/TypeScript)
 
-![screenshot](screenshot.png)
+![screenshot](https://i.imgur.com/Lz17ytT.png)
 
 ## Управление
 
