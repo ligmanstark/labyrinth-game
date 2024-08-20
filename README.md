@@ -12,6 +12,7 @@ This template has been updated for:
 
 ![screenshot](https://i.imgur.com/Lz17ytT.png)
 ![screenshot](https://i.imgur.com/6jWpY1Z.png)
+![screenshot](https://i.imgur.com/cOMdmkp.png)
 
 ## Управление
 
