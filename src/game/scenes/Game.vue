@@ -139,6 +139,10 @@ export default class Game extends Scene {
     }
 
     update(_time: number, delta: number) {
+if(this.winGame){
+    console.log('win!');
+}
+
         const distanceToLoot = Phaser.Math.Distance.Between(
             this.lootLayer.x,
             this.lootLayer.y,
