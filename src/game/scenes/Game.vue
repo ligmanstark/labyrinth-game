@@ -23,7 +23,7 @@ export default class Game extends Scene {
 
     preload() {
         this.load.image(C.TILES.LABYRINTH, '/labyrinth.png');
-        this.load.tilemapTiledJSON('map', 'src/assets/labyrinth.json');
+        this.load.tilemapTiledJSON('map', './src/assets/labyrinth.json');
         this.load.spritesheet(
             C.SPRITES.PLAYER,
             '/FOXSPRITESHEET.png',
