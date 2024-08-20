@@ -1,0 +1,23 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "/home/levis/coding/gameDev/labyrinth/src/assets/tilesets",
+    "map.lastUsedFormat": "json",
+    "openFiles": [
+    ],
+    "project": "",
+    "recentFiles": [
+    ],
+    "tileset.embedInMap": true
+}
