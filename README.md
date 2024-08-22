@@ -1,4 +1,5 @@
 # Игра лабиринт
+
 Помоги найти лисенку сокровище в лабиринте!
 
 ### Технологии
@@ -20,12 +21,10 @@ This template has been updated for:
 
 ## Развертывание на локальной машине
 
-| Command         | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `npm install`   | Установка зависимостей                         |
-| `npm run dev`   | Запуск сервера                                 |
-
-
+| Command       | Description            |
+| ------------- | ---------------------- |
+| `npm install` | Установка зависимостей |
+| `npm run dev` | Запуск сервера         |
 
 Created by [Phaser Studio](mailto:support@phaser.io). Powered by coffee, anime, pixels and love.
 

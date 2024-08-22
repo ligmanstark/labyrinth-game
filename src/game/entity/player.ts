@@ -60,21 +60,52 @@ export class Player extends Entity {
             repeat: -1,
         });
     }
-    update(delta: number): void {
-        const keys = this.scene.input.keyboard.createCursorKeys();
-        if (keys.up.isDown) {
-            this.play('up', this.ignoringAnotherSprites);
-            this.setVelocity(0, -delta * this.moveSpeed);
-        } else if (keys.down.isDown) {
-            this.play('down', this.ignoringAnotherSprites);
-            this.setVelocity(0, delta * this.moveSpeed);
-        } else if (keys.left.isDown) {
-            this.play('left', this.ignoringAnotherSprites);
-            this.setVelocity(-delta * this.moveSpeed, 0);
-        } else if (keys.right.isDown) {
-            this.play('right', this.ignoringAnotherSprites);
-            this.setVelocity(delta * this.moveSpeed, 0);
+    update(
+        delta: number,
+        mobileUp?: boolean,
+        mobileDown?: boolean,
+        mobileLeft?: boolean,
+        mobileRight?: boolean
+    ): void {
+        if (
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+                navigator.userAgent
+            )
+        ) {
+            if (mobileUp) {
+                this.play('up', this.ignoringAnotherSprites);
+                this.setVelocity(0, -delta * this.moveSpeed);
+            } else if (mobileDown) {
+                this.play('down', this.ignoringAnotherSprites);
+                this.setVelocity(0, delta * this.moveSpeed);
+            } else if (mobileLeft) {
+                this.play('left', this.ignoringAnotherSprites);
+                this.setVelocity(-delta * this.moveSpeed, 0);
+            } else if (mobileRight) {
+                this.play('right', this.ignoringAnotherSprites);
+                this.setVelocity(delta * this.moveSpeed, 0);
+            } else {
+                this.setVelocity(0, 0);
+                this.stop();
+            }
         } else {
+            const keys = this.scene.input.keyboard.createCursorKeys();
+            if (keys.up.isDown) {
+                this.play('up', this.ignoringAnotherSprites);
+                this.setVelocity(0, -delta * this.moveSpeed);
+            } else if (keys.down.isDown) {
+                this.play('down', this.ignoringAnotherSprites);
+                this.setVelocity(0, delta * this.moveSpeed);
+            } else if (keys.left.isDown) {
+                this.play('left', this.ignoringAnotherSprites);
+                this.setVelocity(-delta * this.moveSpeed, 0);
+            } else if (keys.right.isDown) {
+                this.play('right', this.ignoringAnotherSprites);
+                this.setVelocity(delta * this.moveSpeed, 0);
+            } else {
+                this.setVelocity(0, 0);
+                this.stop();
+            }
             this.setVelocity(0, 0);
             this.stop();
         }

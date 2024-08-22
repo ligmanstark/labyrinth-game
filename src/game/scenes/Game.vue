@@ -10,6 +10,15 @@ export default class Game extends Scene {
     private vision?: Phaser.GameObjects.Image;
     private lootLayer?: Phaser.Tilemaps.TilemapLayer;
     private winGame?: GameObjects.Text;
+    mobileUp: GameObjects.DOMElement;
+    mobileDown: GameObjects.DOMElement;
+    mobileLeft: GameObjects.DOMElement;
+    mobileRight: GameObjects.DOMElement;
+    moveUp: boolean;
+    moveDown: boolean;
+    moveLeft: boolean;
+    moveRight: boolean;
+
     constructor(
         vision: Phaser.GameObjects.Image,
         lootLayer: Phaser.Tilemaps.TilemapLayer,
@@ -24,14 +33,10 @@ export default class Game extends Scene {
     preload() {
         this.load.image(C.TILES.LABYRINTH, '/labyrinth.png');
         this.load.tilemapTiledJSON('map', '/labyrinth.json');
-        this.load.spritesheet(
-            C.SPRITES.PLAYER,
-            '/FOXSPRITESHEET.png',
-            {
-                frameWidth: C.SIZES.PLAYER.WIDTH,
-                frameHeight: C.SIZES.PLAYER.HEIGHT,
-            }
-        );
+        this.load.spritesheet(C.SPRITES.PLAYER, '/FOXSPRITESHEET.png', {
+            frameWidth: C.SIZES.PLAYER.WIDTH,
+            frameHeight: C.SIZES.PLAYER.HEIGHT,
+        });
     }
 
     create() {
@@ -80,15 +85,6 @@ export default class Game extends Scene {
             texture: C.SPRITES.PLAYER,
         });
 
-        this.cameras.main.startFollow(this.player);
-        this.cameras.main.setZoom(2);
-        this.cameras.main.setBounds(
-            0,
-            0,
-            map.widthInPixels,
-            map.heightInPixels
-        );
-
         this.physics.world.setBounds(
             0,
             0,
@@ -136,12 +132,82 @@ export default class Game extends Scene {
         renderTexture.mask.invertAlpha = true;
 
         EventBus.emit('current-scene-ready', this);
+
+        this.moveUp = false;
+        this.moveDown = false;
+        this.moveLeft = false;
+        this.moveRight = false;
+
+        if (
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+                navigator.userAgent
+            )
+        ) {
+            const heightView = window.screen.height /1.44
+            const positionUp = heightView
+            const positionDown=heightView+60
+            const positionMiddle=heightView+30
+
+             this.mobileUp = this.add
+                .dom(512, positionUp, 'button', '', 'Up')
+                .setClassName('controlls')
+                .addListener('mouseup')
+                .on('mouseup', () => {
+                    this.moveUp = false;
+                })
+                .addListener('mousedown')
+                .on('mousedown', () => {
+                    this.moveUp = true;
+                });
+            this.mobileDown = this.add
+                .dom(512, positionDown, 'button', '', 'Down')
+                .setClassName('controlls')
+                .addListener('mouseup')
+                .on('mouseup', () => {
+                    this.moveDown = false;
+                })
+                .addListener('mousedown')
+                .on('mousedown', () => {
+                    this.moveDown = true;
+                });
+            this.mobileLeft = this.add
+                .dom(412, positionMiddle, 'button', '', 'Left')
+                .setClassName('controlls')
+                .addListener('mouseup')
+                .on('mouseup', () => {
+                    this.moveLeft = false;
+                })
+                .addListener('mousedown')
+                .on('mousedown', () => {
+                    this.moveLeft = true;
+                });
+            this.mobileRight = this.add
+                .dom(612, positionMiddle, 'button', '', 'Right')
+                .setClassName('controlls')
+                .addListener('mouseup')
+                .on('mouseup', () => {
+                    this.moveRight = false;
+                })
+                .addListener('mousedown')
+                .on('mousedown', () => {
+                    this.moveRight = true;
+                });
+        } else {
+            this.cameras.main.startFollow(this.player);
+            this.cameras.main.setZoom(2);
+            this.cameras.main.setBounds(
+                0,
+                0,
+                map.widthInPixels,
+                map.heightInPixels
+            );
+        }
     }
 
     update(_time: number, delta: number) {
-if(this.winGame){
-    console.log('win!');
-}
+        if (this.winGame) {
+            console.log('win!');
+        }
 
         const distanceToLoot = Phaser.Math.Distance.Between(
             this.lootLayer.x,
@@ -149,7 +215,13 @@ if(this.winGame){
             this.player.x,
             this.player.y
         );
-        this.player.update(delta);
+        this.player.update(
+            delta,
+            this.moveUp,
+            this.moveDown,
+            this.moveLeft,
+            this.moveRight
+        );
         if (this.vision) {
             this.vision.x = this.player.x;
             this.vision.y = this.player.y;
@@ -173,3 +245,10 @@ if(this.winGame){
     }
 }
 </script>
+<style>
+.controlls {
+    position: absolute;
+    display: flex;
+    width: 100px;
+ }
+</style>
