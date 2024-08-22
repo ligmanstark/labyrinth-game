@@ -106,6 +106,8 @@ export class Player extends Entity {
                 this.setVelocity(0, 0);
                 this.stop();
             }
+            this.setVelocity(0, 0);
+            this.stop();
         }
     }
 }

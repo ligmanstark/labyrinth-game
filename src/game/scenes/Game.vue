@@ -85,15 +85,6 @@ export default class Game extends Scene {
             texture: C.SPRITES.PLAYER,
         });
 
-        this.cameras.main.startFollow(this.player);
-        this.cameras.main.setZoom(2);
-        this.cameras.main.setBounds(
-            0,
-            0,
-            map.widthInPixels,
-            map.heightInPixels
-        );
-
         this.physics.world.setBounds(
             0,
             0,
@@ -152,8 +143,13 @@ export default class Game extends Scene {
                 navigator.userAgent
             )
         ) {
-            this.mobileUp = this.add
-                .dom(512, 290, 'button', '', 'Up')
+            const heightView = window.screen.height /1.44
+            const positionUp = heightView
+            const positionDown=heightView+60
+            const positionMiddle=heightView+30
+
+             this.mobileUp = this.add
+                .dom(512, positionUp, 'button', '', 'Up')
                 .setClassName('controlls')
                 .addListener('mouseup')
                 .on('mouseup', () => {
@@ -164,7 +160,7 @@ export default class Game extends Scene {
                     this.moveUp = true;
                 });
             this.mobileDown = this.add
-                .dom(512, 350, 'button', '', 'Down')
+                .dom(512, positionDown, 'button', '', 'Down')
                 .setClassName('controlls')
                 .addListener('mouseup')
                 .on('mouseup', () => {
@@ -175,7 +171,7 @@ export default class Game extends Scene {
                     this.moveDown = true;
                 });
             this.mobileLeft = this.add
-                .dom(412, 320, 'button', '', 'Left')
+                .dom(412, positionMiddle, 'button', '', 'Left')
                 .setClassName('controlls')
                 .addListener('mouseup')
                 .on('mouseup', () => {
@@ -186,7 +182,7 @@ export default class Game extends Scene {
                     this.moveLeft = true;
                 });
             this.mobileRight = this.add
-                .dom(612, 320, 'button', '', 'Right')
+                .dom(612, positionMiddle, 'button', '', 'Right')
                 .setClassName('controlls')
                 .addListener('mouseup')
                 .on('mouseup', () => {
@@ -196,6 +192,15 @@ export default class Game extends Scene {
                 .on('mousedown', () => {
                     this.moveRight = true;
                 });
+        } else {
+            this.cameras.main.startFollow(this.player);
+            this.cameras.main.setZoom(2);
+            this.cameras.main.setBounds(
+                0,
+                0,
+                map.widthInPixels,
+                map.heightInPixels
+            );
         }
     }
 
@@ -243,5 +248,7 @@ export default class Game extends Scene {
 <style>
 .controlls {
     position: absolute;
-}
+    display: flex;
+    width: 100px;
+ }
 </style>
